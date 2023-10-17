@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>VSCode-like Editor</title>
+    <style>
+        body { 
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        /* Define the container for the editor */
+        #editor-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor-container"></div>
+    <!-- Include the Monaco Editor library -->
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.23.0/min/vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.23.0/min/vs' } });
+    
+        require(['vs/editor/editor.main'], function () {
+            var editor = monaco.editor.create(document.getElementById('editor-container'), {
+                value: [
+                    'function hello() {',
+                    '\tconsole.log("Hello, world!");',
+                    '}',
+                ].join('\n'),
+                theme: 'vs-dark', // You can choose a different theme
+                lineNumbers: "off",
+                minimap: { enabled: false },
+                wordWrap: "off",
+                renderLineHighlight: "none",
+                matchBrackets: false,
+                folding: false,
+                overviewRulerBorder: false, // Remove right-line indicators
+                overviewRulerLanes: 0, // Remove right-line indicators
+                scrollbar: {
+                        vertical:"hidden",
+                        horizontal: "hidden",
+                },
+                autoSurround: 'never',
+                contextmenu: false,
+                unicodeHighlight: false,
+                suggestions: false,
+                // Disable syntax highlighting
+                language: "plaintext",
+                wordBasedSuggestions: false,
+                renderWhitespace: 'none',
+                autoIndent: 'none',
+                guides: {
+                        indentation: false,
+                        highlightActiveIndentation: false,
+                        highlightActiveBracketPair: false,
+                        bracketPairsHorizontal: false,
+                },
+                renderIndentGuides: false
+            });
+        });
+    </script>    
+</body>
+</html>
