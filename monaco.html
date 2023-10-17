@@ -26,19 +26,38 @@
     <script>
         require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.23.0/min/vs' } });
     
+        var editor
+
         require(['vs/editor/editor.main'], function () {
-            var editor = monaco.editor.create(document.getElementById('editor-container'), {
+                monaco.editor.defineTheme('default', {
+                        base: 'vs',
+                        inherit: false,
+                        rules: [],
+                        colors: {
+
+                        }
+                });    
+            editor = monaco.editor.create(document.getElementById('editor-container'), {
                 value: [
                     'function hello() {',
                     '\tconsole.log("Hello, world!");',
                     '}',
                 ].join('\n'),
-                theme: 'vs-dark', // You can choose a different theme
+                smartSelect: {
+                        selectLeadingAndTrailingWhitespace: false,
+                        selectSubwords: false
+                },
+                hover: { enabled: false },
+                insertSpaces: false,
+                detectIndentation: false,
+                wordSeparators: "",
+                semanticHighlighting: { enabled: false },
+                selectionHighlight: false,
+                theme: 'default', // You can choose a different theme
                 lineNumbers: "off",
                 minimap: { enabled: false },
                 wordWrap: "off",
                 renderLineHighlight: "none",
-                matchBrackets: false,
                 folding: false,
                 overviewRulerBorder: false, // Remove right-line indicators
                 overviewRulerLanes: 0, // Remove right-line indicators
@@ -55,6 +74,10 @@
                 wordBasedSuggestions: false,
                 renderWhitespace: 'none',
                 autoIndent: 'none',
+                suggestOnTriggerCharacters: false,
+                acceptSuggestionOnEnter: 'off',
+                matchBrackets: 'never',
+                renderControlCharacters: false,
                 guides: {
                         indentation: false,
                         highlightActiveIndentation: false,
